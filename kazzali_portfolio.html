@@ -336,6 +336,11 @@
     border-color: var(--pbi-yellow);
   }
 
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   @keyframes growUp {
     from { transform: scaleY(0); }
     to { transform: scaleY(1); }
@@ -834,59 +839,50 @@
 
     <div class="kpi-row">
       <div class="kpi-card">
-        <div class="kpi-label">Experience</div>
-        <div class="kpi-value"><span id="widget-years"></span><span style="font-size:1rem;color:var(--text-muted)">yrs</span></div>
-        <div class="kpi-delta delta-up">↑ Expert</div>
+        <div class="kpi-label" id="kpi1-label">Experience</div>
+        <div class="kpi-value" id="kpi1-value"><span id="widget-years"></span><span style="font-size:1rem;color:var(--text-muted)">yrs</span></div>
+        <div class="kpi-delta delta-up" id="kpi1-delta">↑ Expert</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">Reports Built</div>
-        <div class="kpi-value">80<span style="font-size:1rem;color:var(--text-muted)">+</span></div>
-        <div class="kpi-delta delta-up">↑ Enterprise</div>
+        <div class="kpi-label" id="kpi2-label">Reports Built</div>
+        <div class="kpi-value" id="kpi2-value">80<span style="font-size:1rem;color:var(--text-muted)">+</span></div>
+        <div class="kpi-delta delta-up" id="kpi2-delta">↑ Enterprise</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">Consumers</div>
-        <div class="kpi-value" style="font-size:1.6rem;color:var(--pbi-yellow)">500<span style="font-size:1rem;color:var(--pbi-gold)">+</span></div>
-        <div class="kpi-delta delta-up">↑ Active Users</div>
+        <div class="kpi-label" id="kpi3-label">Consumers</div>
+        <div class="kpi-value" id="kpi3-value" style="font-size:1.6rem;color:var(--pbi-yellow)">500<span style="font-size:1rem;color:var(--pbi-gold)">+</span></div>
+        <div class="kpi-delta delta-up" id="kpi3-delta">↑ Active Users</div>
       </div>
     </div>
 
     <div class="chart-area">
-      <div class="chart-label">Career Growth · Roles Over Time</div>
-      <div class="bars">
-        <div class="bar-wrap">
+      <div class="chart-label">Click a company to explore ↓</div>
+      <div class="bars" id="widget-bars">
+        <div class="bar-wrap" onclick="selectOrg('hcl')" id="bar-hcl" style="cursor:pointer">
           <div class="bar" style="height:35%;animation-delay:0.1s"></div>
           <span class="bar-month">HCL</span>
         </div>
-        <div class="bar-wrap">
+        <div class="bar-wrap" onclick="selectOrg('fpi')" id="bar-fpi" style="cursor:pointer">
           <div class="bar" style="height:55%;animation-delay:0.2s"></div>
           <span class="bar-month">FPI</span>
         </div>
-        <div class="bar-wrap">
+        <div class="bar-wrap" onclick="selectOrg('acc')" id="bar-acc" style="cursor:pointer">
           <div class="bar" style="height:68%;animation-delay:0.3s"></div>
           <span class="bar-month">ACC</span>
         </div>
-        <div class="bar-wrap">
+        <div class="bar-wrap" onclick="selectOrg('tcs')" id="bar-tcs" style="cursor:pointer">
           <div class="bar" style="height:82%;animation-delay:0.4s"></div>
           <span class="bar-month">TCS</span>
         </div>
-        <div class="bar-wrap">
+        <div class="bar-wrap" onclick="selectOrg('azn')" id="bar-azn" style="cursor:pointer">
           <div class="bar highlight" style="height:100%;animation-delay:0.5s"></div>
           <span class="bar-month" style="color:var(--pbi-yellow)">AZN</span>
         </div>
       </div>
     </div>
 
-    <div class="skill-chips">
-      <span class="skill-chip hot">Power BI</span>
-      <span class="skill-chip hot">Paginated Reports</span>
-      <span class="skill-chip hot">SQL</span>
-      <span class="skill-chip hot">Python</span>
-      <span class="skill-chip hot">DAX</span>
-      <span class="skill-chip">Copilot Studio</span>
-      <span class="skill-chip">Power Query</span>
-      <span class="skill-chip">SSRS</span>
-      <span class="skill-chip">Tableau</span>
-    </div>
+    <!-- unified all-tools chip area -->
+    <div id="all-chips" style="display:flex;flex-wrap:wrap;gap:6px"></div>
   </div>
 </section>
 
@@ -1281,13 +1277,150 @@
 
 <script>
   // Career started Sep 2016 — updates automatically every year
-  const startDate = new Date(2016, 8, 1); // Month is 0-indexed, so 8 = September
+  const startDate = new Date(2016, 8, 1);
   const now = new Date();
   let years = now.getFullYear() - startDate.getFullYear();
-  if (now.getMonth() < startDate.getMonth()) years--; // Before Sep anniversary
+  if (now.getMonth() < startDate.getMonth()) years--;
   document.getElementById('years-exp').textContent = years;
   document.getElementById('years-stat').textContent = years + '+';
   document.getElementById('widget-years').textContent = years;
+
+  // Org data from resume
+  const orgs = {
+    hcl: {
+      name: 'HCL Technologies',
+      period: 'Sep 2016 – Sep 2018 · 2 yrs',
+      role: 'Analyst – Tableau & BI',
+      reports: '20+', consumers: '~100', duration: '2 yrs',
+      kpi2delta: '↑ Tableau Dashboards', kpi3delta: '↗ Business Users',
+      tools: ['Tableau', 'SQL', 'Excel', 'Excel Macros', 'PowerPoint', 'Tableau Server', 'Python'],
+      hot: ['Tableau', 'SQL', 'Excel', 'Excel Macros', 'Python', 'PowerPoint', 'Tableau Server']
+    },
+    fpi: {
+      name: 'Future Pipe Industries',
+      period: 'Oct 2018 – Jul 2021 · 2.9 yrs',
+      role: 'Process Associate – Power BI',
+      reports: '30+', consumers: '~150', duration: '2.9 yrs',
+      kpi2delta: '↑ BI Reports', kpi3delta: '↗ Finance & Sales',
+      tools: ['Power BI', 'Power BI Service', 'Power Query', 'SQL', 'SQL Server', 'DAX', 'Excel'],
+      hot: ['Power BI', 'Power BI Service', 'Power Query', 'SQL', 'DAX', 'SQL Server', 'Excel']
+    },
+    acc: {
+      name: 'Accenture',
+      period: 'Jul 2021 – Jul 2022 · 1 yr',
+      role: 'Process Analyst – Power BI',
+      reports: '15+', consumers: '~200', duration: '1 yr',
+      kpi2delta: '↑ KPI Dashboards', kpi3delta: '↗ Halliburton Leads',
+      tools: ['Power BI', 'Power BI Service', 'SQL', 'SQL Server', 'DAX', 'Power Query', 'Excel', 'SSRS', 'Dataflow', 'Deployment Pipelines', 'Power Automate'],
+      hot: ['Power BI', 'Power BI Service', 'Excel', 'SQL', 'SQL Server', 'Deployment Pipelines', 'SSRS', 'Power Automate', 'Dataflow', 'Power Query', 'DAX']
+    },
+    tcs: {
+      name: 'Tata Consultancy Services',
+      period: 'Aug 2022 – Dec 2023 · 1.4 yrs',
+      role: 'IT Analyst – Power BI',
+      reports: '80+', consumers: '~300', duration: '1.4 yrs',
+      kpi2delta: '↑ Cognos Migrated', kpi3delta: '↗ Multi-org Users',
+      tools: ['Power BI', 'Power BI Service', 'Paginated Reports', 'DAX', 'Power Query', 'SQL', 'SQL Server', 'IBM DB2', 'Oracle', 'Deployment Pipelines', 'Power Automate', 'Power Apps', 'Tableau', 'Python', 'Excel', 'Dataflow', 'Tableau Server'],
+      hot: ['Power BI', 'Power BI Service', 'Paginated Reports', 'Power Automate', 'Power Apps', 'Tableau', 'Python', 'Excel', 'Dataflow', 'Tableau Server', 'IBM DB2', 'Oracle', 'SQL Server', 'SQL', 'Power Query', 'DAX', 'Deployment Pipelines']
+    },
+    azn: {
+      name: 'AstraZeneca India',
+      period: 'Dec 2023 – Present · Current',
+      role: 'Power BI Developer (Analyst)',
+      reports: '50+', consumers: '500+', duration: 'Current',
+      kpi2delta: '↑ Enterprise Scale', kpi3delta: '↑ Active Users',
+      tools: ['Power BI', 'Power BI Service', 'DAX', 'Power Query', 'SQL', 'SQL Server', 'Dataflows Gen2', 'Dataflow', 'Power Automate', 'Power Apps', 'Copilot Studio', 'Python', 'LLM', 'Deployment Pipelines', 'SSRS', 'Paginated Reports', 'Excel', 'Tableau', 'Excel Macros', 'PowerPoint', 'Tableau Server'],
+      hot: ['Power BI', 'Power BI Service', 'DAX', 'Power Query', 'SQL', 'SQL Server', 'Dataflows Gen2', 'Dataflow', 'Power Automate', 'Power Apps', 'Copilot Studio', 'Python', 'LLM', 'Deployment Pipelines', 'SSRS', 'Paginated Reports', 'Excel']
+    }
+  };
+
+  // Collect all unique tools across every org
+  const allTools = [...new Set(Object.values(orgs).flatMap(o => o.tools))];
+
+  function renderAllChips(activeTools, hotTools) {
+    hotTools = hotTools || activeTools;
+    const el = document.getElementById('all-chips');
+    el.innerHTML = allTools.map(t => {
+      const isActive = activeTools.includes(t);
+      const isHot = hotTools.includes(t);
+      return `<span style="
+        background:${isHot ? 'rgba(242,201,76,0.15)' : isActive ? 'rgba(255,255,255,0.04)' : 'var(--surface)'};
+        border:1px solid ${isHot ? 'rgba(242,201,76,0.6)' : isActive ? 'var(--border)' : 'var(--border)'};
+        color:${isHot ? 'var(--pbi-yellow)' : isActive ? 'var(--text-secondary)' : 'var(--text-muted)'};
+        padding:4px 10px;border-radius:5px;font-size:0.73rem;font-weight:${isHot ? '600' : '400'};
+        transition:all 0.25s;opacity:${isActive || isHot ? '1' : '0.35'};
+      ">${t}</span>`;
+    }).join('');
+  }
+
+  // Init with AZN selected by default
+  renderAllChips([]);
+
+  let selected = null;
+
+  function selectOrg(key) {
+    if (selected === key) {
+      selected = null;
+      resetWidget();
+      return;
+    }
+    selected = key;
+    const o = orgs[key];
+
+    // highlight bar
+    ['hcl','fpi','acc','tcs','azn'].forEach(k => {
+      const wrap = document.getElementById('bar-' + k);
+      const bar = wrap.querySelector('.bar');
+      wrap.querySelector('.bar-month').style.color = k === key ? 'var(--pbi-yellow)' : '';
+      bar.style.background = k === key ? 'rgba(242,201,76,0.7)' : 'rgba(242,201,76,0.25)';
+      bar.style.borderColor = k === key ? 'var(--pbi-yellow)' : 'rgba(242,201,76,0.4)';
+    });
+
+    // update KPIs
+    document.getElementById('kpi1-label').textContent = 'Duration';
+    document.getElementById('kpi1-value').innerHTML = '<span style="font-size:1.1rem">' + o.duration + '</span>';
+    document.getElementById('kpi1-delta').textContent = o.role;
+    document.getElementById('kpi1-delta').className = 'kpi-delta delta-neutral';
+
+    document.getElementById('kpi2-label').textContent = 'Reports Built';
+    document.getElementById('kpi2-value').innerHTML = o.reports;
+    document.getElementById('kpi2-delta').textContent = o.kpi2delta;
+
+    document.getElementById('kpi3-label').textContent = 'Consumers';
+    document.getElementById('kpi3-value').innerHTML = '<span style="font-size:1.6rem;color:var(--pbi-yellow)">' + o.consumers + '</span>';
+    document.getElementById('kpi3-delta').textContent = o.kpi3delta;
+
+    // highlight only selected org's tools, dim the rest
+    renderAllChips(o.tools, o.hot);
+  }
+
+  function resetWidget() {
+    ['hcl','fpi','acc','tcs','azn'].forEach(k => {
+      const wrap = document.getElementById('bar-' + k);
+      const bar = wrap.querySelector('.bar');
+      wrap.querySelector('.bar-month').style.color = k === 'azn' ? 'var(--pbi-yellow)' : '';
+      bar.style.background = k === 'azn' ? 'rgba(242,201,76,0.7)' : 'rgba(242,201,76,0.25)';
+      bar.style.borderColor = k === 'azn' ? 'var(--pbi-yellow)' : 'rgba(242,201,76,0.4)';
+    });
+
+    document.getElementById('kpi1-label').textContent = 'Experience';
+    document.getElementById('kpi1-value').innerHTML = '<span>' + years + '</span><span style="font-size:1rem;color:var(--text-muted)">yrs</span>';
+    document.getElementById('kpi1-delta').textContent = '↑ Expert';
+    document.getElementById('kpi1-delta').className = 'kpi-delta delta-up';
+
+    document.getElementById('kpi2-label').textContent = 'Reports Built';
+    document.getElementById('kpi2-value').innerHTML = '80<span style="font-size:1rem;color:var(--text-muted)">+</span>';
+    document.getElementById('kpi2-delta').textContent = '↑ Enterprise';
+
+    document.getElementById('kpi3-label').textContent = 'Consumers';
+    document.getElementById('kpi3-value').innerHTML = '<span style="font-size:1.6rem;color:var(--pbi-yellow)">500<span style="font-size:1rem;color:var(--pbi-gold)">+</span></span>';
+    document.getElementById('kpi3-delta').textContent = '↑ Active Users';
+
+    renderAllChips([]);
+  }
+
+  // Default: show AZN highlighted on load
+  selectOrg('azn');
 </script>
 </body>
 </html>
