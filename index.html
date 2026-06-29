@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kazzali Mohamed — Power BI Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --card: #181c27;
+    --border: #242836;
+    --pbi-yellow: #f2c94c;
+    --pbi-gold: #e6a817;
+    --accent-blue: #4fc3f7;
+    --accent-green: #56d364;
+    --accent-purple: #a78bfa;
+    --text-primary: #f0f2f7;
+    --text-secondary: #8b93a7;
+    --text-muted: #555f72;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13, 15, 20, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--pbi-yellow);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text-primary); }
+
+  .nav-cta {
+    background: var(--pbi-yellow);
+    color: #0d0f14 !important;
+    padding: 7px 18px;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--pbi-gold) !important; color: #0d0f14 !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 5% 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(242, 201, 76, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pbi-yellow);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 2px;
+    background: var(--pbi-yellow);
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 span {
+    color: var(--pbi-yellow);
+  }
+
+  .hero-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 480px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+
+  .badge {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .badge.cert {
+    border-color: rgba(242, 201, 76, 0.4);
+    color: var(--pbi-yellow);
+    background: rgba(242, 201, 76, 0.06);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--pbi-yellow);
+    color: #0d0f14;
+    padding: 11px 24px;
+    border-radius: 7px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--pbi-gold); transform: translateY(-1px); }
+
+  .btn-ghost {
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 11px 24px;
+    border-radius: 7px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-ghost:hover { border-color: var(--text-secondary); transform: translateY(-1px); }
+
+  /* ── DASHBOARD WIDGET (hero right) ── */
+  .dashboard-widget {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .widget-title {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .widget-live {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    color: var(--accent-green);
+    font-weight: 500;
+  }
+
+  .live-dot {
+    width: 6px; height: 6px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 12px;
+  }
+
+  .kpi-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .kpi-delta {
+    font-size: 0.7rem;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  .delta-up { color: var(--accent-green); }
+  .delta-neutral { color: var(--pbi-yellow); }
+
+  /* bar chart */
+  .chart-area { margin-bottom: 18px; }
+
+  .chart-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bars {
+    display: flex;
+    gap: 6px;
+    align-items: flex-end;
+    height: 80px;
+  }
+
+  .bar-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+
+  .bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    background: rgba(242, 201, 76, 0.25);
+    border: 1px solid rgba(242, 201, 76, 0.4);
+    transition: background 0.3s;
+    animation: growUp 1s ease-out forwards;
+    transform-origin: bottom;
+  }
+
+  .bar.highlight {
+    background: rgba(242, 201, 76, 0.7);
+    border-color: var(--pbi-yellow);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes growUp {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  .bar-month {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+  }
+
+  /* skills mini table */
+  .skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 4px 9px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .skill-chip.hot {
+    border-color: rgba(79, 195, 247, 0.4);
+    color: var(--accent-blue);
+    background: rgba(79, 195, 247, 0.06);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 80px 5%;
+    scroll-margin-top: 70px;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pbi-yellow);
+    margin-bottom: 8px;
+  }
+
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .section-sub {
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin-bottom: 48px;
+    line-height: 1.7;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 5%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--pbi-yellow);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .skill-card:hover {
+    border-color: rgba(242, 201, 76, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .skill-card-icon {
+    width: 40px; height: 40px;
+    border-radius: 9px;
+    background: rgba(242, 201, 76, 0.1);
+    border: 1px solid rgba(242, 201, 76, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+
+  .skill-card h3 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  .skill-card p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .skill-bar-row {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .skill-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .skill-bar-item span:first-child {
+    width: 90px;
+    flex-shrink: 0;
+  }
+
+  .skill-bar-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--pbi-yellow);
+    animation: slideIn 1.2s ease-out forwards;
+    transform-origin: left;
+  }
+
+  @keyframes slideIn {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  /* ── EXPERIENCE TIMELINE ── */
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--pbi-yellow), transparent);
+  }
+
+  .timeline-item {
+    padding-left: 60px;
+    padding-bottom: 44px;
+    position: relative;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: 12px; top: 4px;
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--pbi-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timeline-dot.current {
+    background: var(--pbi-yellow);
+    box-shadow: 0 0 14px rgba(242, 201, 76, 0.5);
+  }
+
+  .timeline-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+
+  .timeline-company {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .timeline-period {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2px 9px;
+    border-radius: 4px;
+  }
+
+  .timeline-role {
+    font-size: 0.85rem;
+    color: var(--pbi-yellow);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .timeline-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .timeline-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .timeline-card ul li {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.55;
+  }
+
+  .timeline-card ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--pbi-yellow);
+    font-weight: 700;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .cert-card {
+    background: var(--card);
+    border: 1px solid rgba(242, 201, 76, 0.2);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .cert-card:hover {
+    border-color: var(--pbi-yellow);
+    transform: translateY(-3px);
+  }
+
+  .cert-icon {
+    width: 44px; height: 44px;
+    background: rgba(242, 201, 76, 0.1);
+    border: 1px solid rgba(242, 201, 76, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .cert-body h4 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .cert-body p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .cert-body .cert-issuer {
+    font-size: 0.78rem;
+    color: var(--pbi-yellow);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  /* ── AI SECTION ── */
+  .ai-highlight {
+    background: linear-gradient(135deg, var(--card) 0%, rgba(167, 139, 250, 0.05) 100%);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 28px;
+  }
+
+  .ai-highlight h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent-purple);
+  }
+
+  .ai-highlight p {
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+
+  .ai-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ai-pill {
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    color: var(--accent-purple);
+    padding: 5px 13px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--pbi-yellow);
+    color: var(--pbi-yellow);
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding-top: 100px;
+    }
+
+    .dashboard-widget { display: none; }
+
+    .stats-bar {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    nav .nav-links { display: none; }
+  }
+
+  @media (max-width: 500px) {
+    .stats-bar { grid-template-columns: 1fr 1fr; }
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Kazzali Mohamed</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Power BI Developer · <span id="years-exp"></span>+ Years</div>
+    <h1>Turning raw data into<br><span>decisions that matter.</span></h1>
+    <p class="hero-desc">
+      I build enterprise-grade BI solutions — interactive dashboards, scalable data models, and self-service analytics — used by 500+ stakeholders across pharma, oil & gas, and manufacturing.
+    </p>
+    <div class="hero-badges">
+      <span class="badge cert">✓ PL-300 Certified</span>
+      <span class="badge cert">✓ Fabric Analytics Engineer</span>
+      <span class="badge cert">✓ PL-900</span>
+      <span class="badge">Power BI · DAX · SSRS</span>
+      <span class="badge">SQL Server · ETL</span>
+      <span class="badge">Copilot Studio · Python</span>
+    </div>
+    <div class="hero-actions">
+      <a href="mailto:Kazzali7@gmail.com" class="btn-primary">Get in Touch</a>
+      <a href="https://www.linkedin.com/in/kazzali-mohamed-bbb102127" target="_blank" class="btn-ghost">LinkedIn Profile</a>
+    </div>
+  </div>
+
+  <!-- DASHBOARD WIDGET -->
+  <div class="dashboard-widget">
+    <div class="widget-header">
+      <span class="widget-title">Portfolio Analytics</span>
+      <span class="widget-live"><span class="live-dot"></span>Live</span>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label" id="kpi1-label">Experience</div>
+        <div class="kpi-value" id="kpi1-value"><span id="widget-years"></span><span style="font-size:1rem;color:var(--text-muted)">yrs</span></div>
+        <div class="kpi-delta delta-up" id="kpi1-delta">↑ Expert</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label" id="kpi2-label">Reports Built</div>
+        <div class="kpi-value" id="kpi2-value">80<span style="font-size:1rem;color:var(--text-muted)">+</span></div>
+        <div class="kpi-delta delta-up" id="kpi2-delta">↑ Enterprise</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label" id="kpi3-label">Consumers</div>
+        <div class="kpi-value" id="kpi3-value" style="font-size:1.6rem;color:var(--pbi-yellow)">500<span style="font-size:1rem;color:var(--pbi-gold)">+</span></div>
+        <div class="kpi-delta delta-up" id="kpi3-delta">↑ Active Users</div>
+      </div>
+    </div>
+
+    <div class="chart-area">
+      <div class="chart-label">Click a company to explore ↓</div>
+      <div class="bars" id="widget-bars">
+        <div class="bar-wrap" onclick="selectOrg('hcl')" id="bar-hcl" style="cursor:pointer">
+          <div class="bar" style="height:35%;animation-delay:0.1s"></div>
+          <span class="bar-month">HCL</span>
+        </div>
+        <div class="bar-wrap" onclick="selectOrg('fpi')" id="bar-fpi" style="cursor:pointer">
+          <div class="bar" style="height:55%;animation-delay:0.2s"></div>
+          <span class="bar-month">FPI</span>
+        </div>
+        <div class="bar-wrap" onclick="selectOrg('acc')" id="bar-acc" style="cursor:pointer">
+          <div class="bar" style="height:68%;animation-delay:0.3s"></div>
+          <span class="bar-month">ACC</span>
+        </div>
+        <div class="bar-wrap" onclick="selectOrg('tcs')" id="bar-tcs" style="cursor:pointer">
+          <div class="bar" style="height:82%;animation-delay:0.4s"></div>
+          <span class="bar-month">TCS</span>
+        </div>
+        <div class="bar-wrap" onclick="selectOrg('azn')" id="bar-azn" style="cursor:pointer">
+          <div class="bar highlight" style="height:100%;animation-delay:0.5s"></div>
+          <span class="bar-month" style="color:var(--pbi-yellow)">AZN</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- unified all-tools chip area -->
+    <div id="all-chips" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num" id="years-stat"></div>
+    <div class="stat-desc">Years in BI & Analytics</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">80+</div>
+    <div class="stat-desc">Reports Migrated / Built</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">500+</div>
+    <div class="stat-desc">Enterprise Report Consumers</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3</div>
+    <div class="stat-desc">Microsoft Certifications</div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I Do</div>
+  <div class="section-heading">Core Technical Skills</div>
+  <p class="section-sub">From data modelling to AI-powered analytics — I cover the full Power BI stack and beyond.</p>
+
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <div class="skill-card-icon">📊</div>
+      <h3>Power BI Platform</h3>
+      <p>Full suite expertise: Desktop, Service, Embedded, Report Builder, Paginated Reports, Deployment Pipelines, and Power BI Apps.</p>
+      <div class="skill-bar-row">
+        <div class="skill-bar-item">
+          <span>Power BI Desktop</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:98%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Power BI Service</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Paginated Reports</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🧮</div>
+      <h3>DAX & Data Modelling</h3>
+      <p>Advanced DAX measures, time intelligence, RLS/PLS, CALCULATE/FILTER/ALLSELECTED. Star & snowflake schema, composite models, DirectQuery.</p>
+      <div class="skill-bar-row">
+        <div class="skill-bar-item">
+          <span>DAX</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:96%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Star Schema</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>DirectQuery</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🔄</div>
+      <h3>Power Query / ETL</h3>
+      <p>M Language transformations, custom functions, query folding, Dataflows Gen2, and multi-source ETL pipelines from SQL Server, DB2, and Oracle.</p>
+      <div class="skill-bar-row">
+        <div class="skill-bar-item">
+          <span>Power Query</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:93%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Dataflows Gen2</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>M Language</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🗄️</div>
+      <h3>SQL & Databases</h3>
+      <p>Query optimisation, views, stored procedures, joins and subqueries across SQL Server, IBM DB2, and Oracle.</p>
+      <div class="skill-bar-row">
+        <div class="skill-bar-item">
+          <span>SQL Server</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:92%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>IBM DB2</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Oracle</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">⚙️</div>
+      <h3>DevOps & Administration</h3>
+      <p>Workspace management, data gateway config, scheduled refresh, deployment pipelines, Power Automate flows and alert emails.</p>
+      <div class="skill-bar-row">
+        <div class="skill-bar-item">
+          <span>Deployment Pipelines</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Power Automate</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Data Gateway</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">📋</div>
+      <h3>Reporting Tools</h3>
+      <p>SSRS, Tableau, IBM Cognos — including large-scale migration of 80+ Cognos reports to Power BI with full business logic fidelity.</p>
+      <div class="skill-bar-row">
+        <div class="skill-bar-item">
+          <span>SSRS</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Tableau</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>IBM Cognos</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🟣</div>
+      <h3>Power Apps</h3>
+      <p>Building canvas and model-driven apps integrated with Power BI reports and SharePoint, enabling lightweight data entry and workflow automation alongside analytics.</p>
+      <div class="skill-bar-row">
+        <div class="skill-bar-item">
+          <span>Canvas Apps</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Power BI Integration</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>SharePoint Connect</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">⚡</div>
+      <h3>Power Automate</h3>
+      <p>Automating dataset refreshes, business alert emails, and report distribution flows — reducing manual effort and keeping stakeholders updated in real time.</p>
+      <div class="skill-bar-row">
+        <div class="skill-bar-item">
+          <span>Automated Flows</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Alert Emails</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:92%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Scheduled Triggers</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🐍</div>
+      <h3>Python</h3>
+      <p>Used for building User Interaction Metric Libraries, LLM integrations, and data processing scripts that extend Power BI analytics capabilities beyond the platform.</p>
+      <div class="skill-bar-row">
+        <div class="skill-bar-item">
+          <span>Data Processing</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>LLM Integration</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <span>Analytics Scripts</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AI SECTION -->
+<section style="padding-top: 0;">
+  <div class="section-label">Emerging Tech</div>
+  <div class="section-heading">AI & Copilot Integration</div>
+  <p class="section-sub">Hands-on experience wiring LLMs and Copilot into the Power BI ecosystem for self-service intelligence.</p>
+
+  <div class="ai-highlight">
+    <h3>🤖 AI-Powered Analytics at AstraZeneca</h3>
+    <p>
+      Built a conversational agent using Microsoft Copilot Studio to automate internal data queries, eliminating routine ad-hoc report requests. Developed a User Interaction Metric Library with Python and LLMs to surface behavioural insights from report usage. Integrated Microsoft Copilot into Power BI reports so non-technical stakeholders can generate on-demand insights using natural language.
+    </p>
+    <div class="ai-pills">
+      <span class="ai-pill">Microsoft Copilot Studio</span>
+      <span class="ai-pill">LLM Integration</span>
+      <span class="ai-pill">Copilot in Power BI</span>
+      <span class="ai-pill">Natural Language Q&A</span>
+      <span class="ai-pill">Python</span>
+      <span class="ai-pill">Behavioural Analytics</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="padding-top: 0;">
+  <div class="section-label">Career History</div>
+  <div class="section-heading">Work Experience</div>
+  <p class="section-sub">8+ years across pharma, oil & gas, manufacturing, and technology consulting.</p>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot current"></div>
+      <div class="timeline-meta">
+        <span class="timeline-company">AstraZeneca India</span>
+        <span class="timeline-period">Dec 2023 – Present</span>
+      </div>
+      <div class="timeline-role">Power BI Developer (Analyst) · Chennai</div>
+      <div class="timeline-card">
+        <ul>
+          <li>Designed enterprise RLS and Page-Level Security, ensuring regulatory compliance for role-based data access across all business units.</li>
+          <li>Engineered advanced data models supporting 500+ report consumers with high-performance, scalable analytical solutions.</li>
+          <li>Automated dataset refreshes and business alert emails via Power Automate, reducing manual effort significantly.</li>
+          <li>Built a conversational AI agent with Microsoft Copilot Studio, enabling self-service analytics and cutting ad-hoc requests.</li>
+          <li>Developed a User Interaction Metric Library using Python and LLMs to capture report usage behavioural insights.</li>
+          <li>Managed Power BI deployment pipelines across Dev, Test, and Production with enterprise gateway configuration.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-company">Tata Consultancy Services (TCS)</span>
+        <span class="timeline-period">Aug 2022 – Dec 2023</span>
+      </div>
+      <div class="timeline-role">IT Analyst – Power BI · Chennai</div>
+      <div class="timeline-card">
+        <ul>
+          <li>Led migration of 80+ Cognos reports to Power BI Desktop and Service with full fidelity to original business logic.</li>
+          <li>Built ETL pipelines consolidating data from SQL Server, IBM DB2, and Oracle into unified semantic models.</li>
+          <li>Developed complex DAX calculations and parameterised Paginated Reports replicating Cognos prompt functionality.</li>
+          <li>Conducted end-user training on new Power BI reports, driving effective adoption across the organisation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-company">Accenture</span>
+        <span class="timeline-period">Jul 2021 – Jul 2022</span>
+      </div>
+      <div class="timeline-role">Process Analyst – Power BI · Bangalore</div>
+      <div class="timeline-card">
+        <ul>
+          <li>Designed KPI dashboards for Halliburton (Oil & Gas) market leadership teams using Power BI and SQL.</li>
+          <li>Performed deep-dive ticket data analysis delivering structured executive presentations to senior stakeholders.</li>
+          <li>Set up Power BI Subscriptions to automate scheduled report distribution across cross-functional teams.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-company">Future Pipe Industries</span>
+        <span class="timeline-period">Oct 2018 – Jul 2021</span>
+      </div>
+      <div class="timeline-role">Process Associate – Power BI · Chennai</div>
+      <div class="timeline-card">
+        <ul>
+          <li>Built Power BI reports for Finance, Sales, and Project teams in a manufacturing environment.</li>
+          <li>Created SQL views and Excel data layers to structure data into Power BI semantic models.</li>
+          <li>Configured workspaces, gateways, RLS, and licence management for enterprise access control.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-company">HCL Technologies</span>
+        <span class="timeline-period">Sep 2016 – Sep 2018</span>
+      </div>
+      <div class="timeline-role">Analyst – Tableau & BI · Chennai</div>
+      <div class="timeline-card">
+        <ul>
+          <li>Developed and maintained monthly Tableau dashboards for business decision support.</li>
+          <li>Published dashboards to Tableau Server and guided end-users on self-service navigation.</li>
+          <li>Automated Excel-based sales reports using Macros, improving team productivity.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-label">Microsoft Certified</div>
+  <div class="section-heading">Certifications</div>
+  <p class="section-sub">Validated expertise across the Microsoft data and analytics platform.</p>
+
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon">🏆</div>
+      <div class="cert-body">
+        <h4>Power BI Data Analyst Associate</h4>
+        <p>Advanced data modelling, DAX, report design, and service administration.</p>
+        <div class="cert-issuer">Microsoft · PL-300</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🔷</div>
+      <div class="cert-body">
+        <h4>Fabric Analytics Engineer Associate</h4>
+        <p>Microsoft Fabric platform, Dataflows Gen2, Lakehouse, and semantic modelling.</p>
+        <div class="cert-issuer">Microsoft · DP-600</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">⚡</div>
+      <div class="cert-body">
+        <h4>Power Platform Fundamentals</h4>
+        <p>Power BI, Power Apps, Power Automate, and Power Virtual Agents fundamentals.</p>
+        <div class="cert-issuer">Microsoft · PL-900</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="section-label" style="text-align:center">Open to Opportunities</div>
+    <div class="section-heading" style="text-align:center">Let's Work Together</div>
+    <p style="color:var(--text-secondary); line-height:1.7; text-align:center">
+      Looking for a Power BI Developer who can go from raw SQL to polished, AI-powered dashboards? Let's talk.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:Kazzali7@gmail.com" class="contact-link">
+        <span>✉</span> Kazzali7@gmail.com
+      </a>
+      <a href="tel:+918608499393" class="contact-link">
+        <span>📞</span> +91 86084 99393
+      </a>
+      <a href="https://www.linkedin.com/in/kazzali-mohamed-bbb102127" target="_blank" class="contact-link">
+        <span>🔗</span> LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Kazzali Mohamed · Power BI Developer</span>
+  <span>Chennai, India</span>
+</footer>
+
+<script>
+  // Career started Sep 2016 — updates automatically every year
+  const startDate = new Date(2016, 8, 1);
+  const now = new Date();
+  let years = now.getFullYear() - startDate.getFullYear();
+  if (now.getMonth() < startDate.getMonth()) years--;
+  document.getElementById('years-exp').textContent = years;
+  document.getElementById('years-stat').textContent = years + '+';
+  document.getElementById('widget-years').textContent = years;
+
+  // Org data from resume
+  const orgs = {
+    hcl: {
+      name: 'HCL Technologies',
+      period: 'Sep 2016 – Sep 2018 · 2 yrs',
+      role: 'Analyst – Tableau & BI',
+      reports: '20+', consumers: '~100', duration: '2 yrs',
+      kpi2delta: '↑ Tableau Dashboards', kpi3delta: '↗ Business Users',
+      tools: ['Tableau', 'SQL', 'Excel', 'Excel Macros', 'PowerPoint', 'Tableau Server', 'Python'],
+      hot: ['Tableau', 'SQL', 'Excel', 'Excel Macros', 'Python', 'PowerPoint', 'Tableau Server']
+    },
+    fpi: {
+      name: 'Future Pipe Industries',
+      period: 'Oct 2018 – Jul 2021 · 2.9 yrs',
+      role: 'Process Associate – Power BI',
+      reports: '30+', consumers: '~150', duration: '2.9 yrs',
+      kpi2delta: '↑ BI Reports', kpi3delta: '↗ Finance & Sales',
+      tools: ['Power BI', 'Power BI Service', 'Power Query', 'SQL', 'SQL Server', 'DAX', 'Excel'],
+      hot: ['Power BI', 'Power BI Service', 'Power Query', 'SQL', 'DAX', 'SQL Server', 'Excel']
+    },
+    acc: {
+      name: 'Accenture',
+      period: 'Jul 2021 – Jul 2022 · 1 yr',
+      role: 'Process Analyst – Power BI',
+      reports: '15+', consumers: '~200', duration: '1 yr',
+      kpi2delta: '↑ KPI Dashboards', kpi3delta: '↗ Halliburton Leads',
+      tools: ['Power BI', 'Power BI Service', 'SQL', 'SQL Server', 'DAX', 'Power Query', 'Excel', 'SSRS', 'Dataflow', 'Deployment Pipelines', 'Power Automate'],
+      hot: ['Power BI', 'Power BI Service', 'Excel', 'SQL', 'SQL Server', 'Deployment Pipelines', 'SSRS', 'Power Automate', 'Dataflow', 'Power Query', 'DAX']
+    },
+    tcs: {
+      name: 'Tata Consultancy Services',
+      period: 'Aug 2022 – Dec 2023 · 1.4 yrs',
+      role: 'IT Analyst – Power BI',
+      reports: '80+', consumers: '~300', duration: '1.4 yrs',
+      kpi2delta: '↑ Cognos Migrated', kpi3delta: '↗ Multi-org Users',
+      tools: ['Power BI', 'Power BI Service', 'Paginated Reports', 'DAX', 'Power Query', 'SQL', 'SQL Server', 'IBM DB2', 'Oracle', 'Deployment Pipelines', 'Power Automate', 'Power Apps', 'Tableau', 'Python', 'Excel', 'Dataflow', 'Tableau Server'],
+      hot: ['Power BI', 'Power BI Service', 'Paginated Reports', 'Power Automate', 'Power Apps', 'Tableau', 'Python', 'Excel', 'Dataflow', 'Tableau Server', 'IBM DB2', 'Oracle', 'SQL Server', 'SQL', 'Power Query', 'DAX', 'Deployment Pipelines']
+    },
+    azn: {
+      name: 'AstraZeneca India',
+      period: 'Dec 2023 – Present · Current',
+      role: 'Power BI Developer (Analyst)',
+      reports: '50+', consumers: '500+', duration: 'Current',
+      kpi2delta: '↑ Enterprise Scale', kpi3delta: '↑ Active Users',
+      tools: ['Power BI', 'Power BI Service', 'DAX', 'Power Query', 'SQL', 'SQL Server', 'Dataflows Gen2', 'Dataflow', 'Power Automate', 'Power Apps', 'Copilot Studio', 'Python', 'LLM', 'Deployment Pipelines', 'SSRS', 'Paginated Reports', 'Excel', 'Tableau', 'Excel Macros', 'PowerPoint', 'Tableau Server'],
+      hot: ['Power BI', 'Power BI Service', 'DAX', 'Power Query', 'SQL', 'SQL Server', 'Dataflows Gen2', 'Dataflow', 'Power Automate', 'Power Apps', 'Copilot Studio', 'Python', 'LLM', 'Deployment Pipelines', 'SSRS', 'Paginated Reports', 'Excel']
+    }
+  };
+
+  // Collect all unique tools across every org
+  const allTools = [...new Set(Object.values(orgs).flatMap(o => o.tools))];
+
+  function renderAllChips(activeTools, hotTools) {
+    hotTools = hotTools || activeTools;
+    const el = document.getElementById('all-chips');
+    el.innerHTML = allTools.map(t => {
+      const isActive = activeTools.includes(t);
+      const isHot = hotTools.includes(t);
+      return `<span style="
+        background:${isHot ? 'rgba(242,201,76,0.15)' : isActive ? 'rgba(255,255,255,0.04)' : 'var(--surface)'};
+        border:1px solid ${isHot ? 'rgba(242,201,76,0.6)' : isActive ? 'var(--border)' : 'var(--border)'};
+        color:${isHot ? 'var(--pbi-yellow)' : isActive ? 'var(--text-secondary)' : 'var(--text-muted)'};
+        padding:4px 10px;border-radius:5px;font-size:0.73rem;font-weight:${isHot ? '600' : '400'};
+        transition:all 0.25s;opacity:${isActive || isHot ? '1' : '0.35'};
+      ">${t}</span>`;
+    }).join('');
+  }
+
+  // Init with AZN selected by default
+  renderAllChips([]);
+
+  let selected = null;
+
+  function selectOrg(key) {
+    if (selected === key) {
+      selected = null;
+      resetWidget();
+      return;
+    }
+    selected = key;
+    const o = orgs[key];
+
+    // highlight bar
+    ['hcl','fpi','acc','tcs','azn'].forEach(k => {
+      const wrap = document.getElementById('bar-' + k);
+      const bar = wrap.querySelector('.bar');
+      wrap.querySelector('.bar-month').style.color = k === key ? 'var(--pbi-yellow)' : '';
+      bar.style.background = k === key ? 'rgba(242,201,76,0.7)' : 'rgba(242,201,76,0.25)';
+      bar.style.borderColor = k === key ? 'var(--pbi-yellow)' : 'rgba(242,201,76,0.4)';
+    });
+
+    // update KPIs
+    document.getElementById('kpi1-label').textContent = 'Duration';
+    document.getElementById('kpi1-value').innerHTML = '<span style="font-size:1.1rem">' + o.duration + '</span>';
+    document.getElementById('kpi1-delta').textContent = o.role;
+    document.getElementById('kpi1-delta').className = 'kpi-delta delta-neutral';
+
+    document.getElementById('kpi2-label').textContent = 'Reports Built';
+    document.getElementById('kpi2-value').innerHTML = o.reports;
+    document.getElementById('kpi2-delta').textContent = o.kpi2delta;
+
+    document.getElementById('kpi3-label').textContent = 'Consumers';
+    document.getElementById('kpi3-value').innerHTML = '<span style="font-size:1.6rem;color:var(--pbi-yellow)">' + o.consumers + '</span>';
+    document.getElementById('kpi3-delta').textContent = o.kpi3delta;
+
+    // highlight only selected org's tools, dim the rest
+    renderAllChips(o.tools, o.hot);
+  }
+
+  function resetWidget() {
+    ['hcl','fpi','acc','tcs','azn'].forEach(k => {
+      const wrap = document.getElementById('bar-' + k);
+      const bar = wrap.querySelector('.bar');
+      wrap.querySelector('.bar-month').style.color = k === 'azn' ? 'var(--pbi-yellow)' : '';
+      bar.style.background = k === 'azn' ? 'rgba(242,201,76,0.7)' : 'rgba(242,201,76,0.25)';
+      bar.style.borderColor = k === 'azn' ? 'var(--pbi-yellow)' : 'rgba(242,201,76,0.4)';
+    });
+
+    document.getElementById('kpi1-label').textContent = 'Experience';
+    document.getElementById('kpi1-value').innerHTML = '<span>' + years + '</span><span style="font-size:1rem;color:var(--text-muted)">yrs</span>';
+    document.getElementById('kpi1-delta').textContent = '↑ Expert';
+    document.getElementById('kpi1-delta').className = 'kpi-delta delta-up';
+
+    document.getElementById('kpi2-label').textContent = 'Reports Built';
+    document.getElementById('kpi2-value').innerHTML = '80<span style="font-size:1rem;color:var(--text-muted)">+</span>';
+    document.getElementById('kpi2-delta').textContent = '↑ Enterprise';
+
+    document.getElementById('kpi3-label').textContent = 'Consumers';
+    document.getElementById('kpi3-value').innerHTML = '<span style="font-size:1.6rem;color:var(--pbi-yellow)">500<span style="font-size:1rem;color:var(--pbi-gold)">+</span></span>';
+    document.getElementById('kpi3-delta').textContent = '↑ Active Users';
+
+    renderAllChips([]);
+  }
+
+  // Default: show AZN highlighted on load
+  selectOrg('azn');
+</script>
+</body>
+</html>
